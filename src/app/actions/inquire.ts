@@ -14,7 +14,7 @@ const schema = z.object({
   phone: z.string().trim().max(30).optional().or(z.literal('')),
   kind: z.enum(kinds, { error: 'Pick what you have in mind.' }),
   message: z.string().trim().min(20, 'Give us a few sentences to work with.').max(4000),
-  website: z.string().max(0).optional(), // honeypot
+  website: z.string().optional(), // honeypot: any value means a bot filled it
 })
 
 export type InquiryState = { ok: boolean; errors?: Record<string, string>; message?: string }

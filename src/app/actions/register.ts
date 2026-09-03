@@ -3,6 +3,7 @@
 import { z } from 'zod'
 
 import { TSHIRT_SIZES } from '@/collections/Registrations'
+import { isRegistrationClosed } from '@/lib/events'
 import { formatDateTime } from '@/lib/format'
 import { getPayloadClient } from '@/lib/queries'
 import { absoluteUrl } from '@/lib/site'
@@ -17,7 +18,7 @@ const schema = z.object({
   club: z.string().trim().max(120).optional().or(z.literal('')),
   tshirtSize: z.enum(TSHIRT_SIZES, { error: 'Pick a size.' }),
   waiverAccepted: z.literal('on', { error: 'You need to accept the waiver to take part.' }),
-  website: z.string().max(0).optional(), // honeypot
+  website: z.string().optional(), // honeypot: any value means a bot filled it
 })
 
 export type RegisterState = {
@@ -41,10 +42,7 @@ export async function registerAction(_prev: RegisterState, formData: FormData): 
   const payload = await getPayloadClient()
   const event = await payload.findByID({ collection: 'events', id: data.eventId, depth: 0 }).catch(() => null)
   if (!event) return { ok: false, message: 'This event no longer exists.' }
-  const closed =
-    !event.registrationOpen ||
-    (event.registrationCloseAt && new Date(event.registrationCloseAt).getTime() < Date.now())
-  if (closed) return { ok: false, message: 'Registration for this event is closed.' }
+  if (isRegistrationClosed(event)) return { ok: false, message: 'Registration for this event is closed.' }
 
   if (event.capacity) {
     const count = await payload.count({ collection: 'registrations', where: { event: { equals: event.id } }, overrideAccess: true })

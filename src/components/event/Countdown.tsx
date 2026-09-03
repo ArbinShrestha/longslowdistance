@@ -1,21 +1,21 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useSyncExternalStore } from 'react'
 
 const parts = (ms: number) => {
   const s = Math.max(0, Math.floor(ms / 1000))
   return { d: Math.floor(s / 86400), h: Math.floor((s % 86400) / 3600), m: Math.floor((s % 3600) / 60), s: s % 60 }
 }
 
+const subscribeToClock = (cb: () => void) => {
+  const id = window.setInterval(cb, 1000)
+  return () => window.clearInterval(id)
+}
+
 export function Countdown({ startAt, status }: { startAt: string; status: 'upcoming' | 'live' | 'past' }) {
   const target = new Date(startAt).getTime()
-  const [now, setNow] = useState<number | null>(null)
-
-  useEffect(() => {
-    setNow(Date.now())
-    const id = window.setInterval(() => setNow(Date.now()), 1000)
-    return () => window.clearInterval(id)
-  }, [])
+  // Server snapshot is null so the first paint shows placeholders instead of a mismatched time.
+  const now = useSyncExternalStore(subscribeToClock, () => Math.floor(Date.now() / 1000) * 1000, () => null)
 
   if (status === 'live') return <p className="display-md text-accent">Live now.</p>
   if (status === 'past') return <p className="display-md text-ink-muted">Finished.</p>

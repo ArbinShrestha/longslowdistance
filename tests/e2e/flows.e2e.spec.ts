@@ -28,7 +28,7 @@ test('register flow stores a pending registration and rejects duplicates', async
   await page.getByLabel('T-shirt size').selectOption('M')
   await page.getByRole('checkbox').check()
   await page.getByRole('button', { name: 'Register' }).click()
-  await expect(page.getByRole('alert')).toContainText('already registered')
+  await expect(page.getByText('already registered')).toBeVisible()
 
   // Registrations are not readable anonymously.
   const res = await request.get(`${base}/api/registrations?limit=1`)

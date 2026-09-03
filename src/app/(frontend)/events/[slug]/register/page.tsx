@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 
 import { RegisterForm } from '@/components/forms/RegisterForm'
 import { RichText } from '@/components/RichText'
+import { isRegistrationClosed } from '@/lib/events'
 import { formatDate, formatTime } from '@/lib/format'
 import { findEventBySlug } from '@/lib/queries'
 
@@ -19,8 +20,7 @@ export default async function RegisterPage({ params }: Params) {
   const { slug } = await params
   const event = await findEventBySlug(slug)
   if (!event || !event.slug) notFound()
-  const closed =
-    !event.registrationOpen || (event.registrationCloseAt && new Date(event.registrationCloseAt).getTime() < Date.now())
+  const closed = isRegistrationClosed(event)
 
   return (
     <section className="container-x grid gap-12 pt-32 pb-24 lg:grid-cols-12 md:pt-44 md:pb-36">

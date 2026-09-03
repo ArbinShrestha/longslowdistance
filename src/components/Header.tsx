@@ -24,8 +24,6 @@ export function Header({ registerHref }: { registerHref: string | null }) {
   const pathname = usePathname()
   const ref = useRef<HTMLElement>(null)
 
-  useEffect(() => setOpen(false), [pathname])
-
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
     return () => {
@@ -100,6 +98,7 @@ export function Header({ registerHref }: { registerHref: string | null }) {
             <Link
               key={item.href}
               href={item.href}
+              onClick={() => setOpen(false)}
               style={{ transitionDelay: `${80 + i * 60}ms` }}
               className={`display-md border-b border-line py-5 text-ink transition-all duration-700 ease-(--ease-out-expo) ${open ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}
             >
@@ -110,6 +109,7 @@ export function Header({ registerHref }: { registerHref: string | null }) {
         {registerHref && (
           <Link
             href={registerHref}
+            onClick={() => setOpen(false)}
             className="mt-auto inline-flex items-center justify-center gap-2 rounded-full bg-accent py-4 text-lg font-semibold text-accent-ink"
           >
             Register for the Backyard Ultra

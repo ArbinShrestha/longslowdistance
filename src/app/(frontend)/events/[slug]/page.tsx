@@ -7,6 +7,7 @@ import { notFound } from 'next/navigation'
 import { Countdown } from '@/components/event/Countdown'
 import { RouteDraw } from '@/components/event/RouteDraw'
 import { RichText } from '@/components/RichText'
+import { isRegistrationClosed } from '@/lib/events'
 import { formatDate, formatNPR, formatTime } from '@/lib/format'
 import { routeFromMedia } from '@/lib/gpxFile'
 import { resolveImage } from '@/lib/media'
@@ -37,8 +38,7 @@ export default async function EventPage({ params }: Params) {
 
   const [route, hero] = [await routeFromMedia(event.gpx), resolveImage(event.heroImage, 'large')]
   const registerHref = event.externalRegisterUrl || `/events/${event.slug}/register`
-  const closed =
-    !event.registrationOpen || (event.registrationCloseAt && new Date(event.registrationCloseAt).getTime() < Date.now())
+  const closed = isRegistrationClosed(event)
   const gallery = (event.gallery ?? []).map((g) => resolveImage(g.image, 'card')).filter(Boolean)
 
   const facts: [string, string][] = [
