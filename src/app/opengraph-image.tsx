@@ -29,8 +29,9 @@ export default function OpenGraphImage() {
           <path d={LSD_LETTERS_PATH} fill="#f2efe9" fillRule="evenodd" />
         </svg>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ fontSize: 84, fontWeight: 800, letterSpacing: -3, lineHeight: 1 }}>
-            Run long. Run slow. <span style={{ color: '#ff5a1f' }}>Run together.</span>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20, fontSize: 84, fontWeight: 800, letterSpacing: -3, lineHeight: 1 }}>
+            <span>Run long. Run slow.</span>
+            <span style={{ color: '#ff5a1f' }}>Run together.</span>
           </div>
           <div style={{ marginTop: 24, fontSize: 30, color: '#b3afa8' }}>{SITE_TAGLINE}</div>
         </div>
