@@ -1,0 +1,129 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/* Long Slow Distance: one dark theme. Off-black ground, warm off-white ink, one signal-orange accent. */
+:root {
+  color-scheme: dark;
+  --surface: #0b0b0c;
+  --surface-2: #141416;
+  --surface-3: #1d1d20;
+  --line: rgba(242, 239, 233, 0.1);
+  --line-strong: rgba(242, 239, 233, 0.22);
+  --ink: #f2efe9;
+  --ink-muted: #b3afa8;
+  --ink-subtle: #7d7973;
+  --accent: #ff5a1f;
+  --accent-hover: #ff7442;
+  --accent-ink: #0b0b0c;
+  --paper: #f2efe9;
+  --paper-ink: #0b0b0c;
+  --good: #8fd3a3;
+  --bad: #ff8a73;
+}
+
+@theme inline {
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bricolage), var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-subtle: var(--ink-subtle);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-ink: var(--accent-ink);
+  --color-paper: var(--paper);
+  --color-paper-ink: var(--paper-ink);
+  --color-good: var(--good);
+  --color-bad: var(--bad);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@layer base {
+  html {
+    background: var(--surface);
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-surface text-ink antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display;
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility display-xl {
+  font-size: clamp(3rem, 9vw, 9.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  font-weight: 800;
+}
+@utility display-lg {
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+}
+@utility display-manifesto {
+  font-size: clamp(1.75rem, 5vw, 5.25rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+}
+@utility display-md {
+  font-size: clamp(1.75rem, 3.4vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+@utility label {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+@utility container-x {
+  @apply mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-12;
+}
+@utility section-y {
+  @apply py-24 md:py-36 lg:py-44;
+}
+
+/* Reveal helper: elements start hidden and GSAP (or the reduced-motion fallback) shows them. */
+.reveal { opacity: 0; transform: translateY(24px); }
+.reveal.is-visible, html.reduce-motion .reveal { opacity: 1; transform: none; }
+
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+.spin-slow { animation: spin-slow 40s linear infinite; }
+
+.prose-lsd {
+  @apply prose prose-invert prose-lg max-w-[68ch] prose-headings:font-display prose-headings:tracking-tight prose-p:text-ink-muted prose-li:text-ink-muted prose-a:text-ink prose-a:underline prose-a:decoration-accent prose-a:underline-offset-4 prose-blockquote:border-accent prose-blockquote:font-display prose-blockquote:text-2xl prose-blockquote:font-medium prose-blockquote:not-italic prose-blockquote:text-ink prose-strong:text-ink;
+}
