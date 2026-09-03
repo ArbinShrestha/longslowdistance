@@ -61,3 +61,4 @@ node_modules/
 
 # generated screenshots
 /test-results/
+.env.production.local
