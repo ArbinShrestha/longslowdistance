@@ -5,7 +5,7 @@ const browser = await chromium.launch({ channel: 'chrome' })
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } })
 const errors = []
 page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text().slice(0, 160)) })
-await page.goto('http://localhost:3000/', { waitUntil: 'networkidle' })
+await page.goto((process.env.BASE_URL || 'http://localhost:3000') + '/', { waitUntil: 'networkidle' })
 await page.waitForTimeout(800)
 const stops = [['hero', 0], ['event', 900], ['manifesto', 2400], ['manifesto2', 3300], ['services', 4600], ['journal', 5600], ['cta', 6600]]
 for (const [name, y] of stops) {
