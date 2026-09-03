@@ -113,6 +113,7 @@ async function seed() {
         'We run together because nobody finishes a night alone.',
         'We build events the way we run: patient, honest, all in.',
       ].map((line) => ({ line })),
+      instagram: 'longslowdistance.np',
       footerNote: 'Made in Kathmandu Valley.',
     },
   })
