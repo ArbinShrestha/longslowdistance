@@ -8,7 +8,7 @@ for (const [name, vp] of [['desktop', { width: 1440, height: 900 }], ['mobile', 
   page.on('console', (m) => { if (m.type() === 'error') errors.push(`${name} ${page.url()} console: ${m.text().slice(0, 200)}`) })
   page.on('pageerror', (e) => errors.push(`${name} ${page.url()} pageerror: ${e.message.slice(0, 200)}`))
   for (const r of routes) {
-    await page.goto('http://localhost:3000' + r, { waitUntil: 'networkidle', timeout: 120000 })
+    await page.goto((process.env.BASE_URL || 'http://localhost:3000') + r, { waitUntil: 'networkidle', timeout: 120000 })
     await page.waitForTimeout(800)
     // scroll through so reveals and pins fire, then back to top for the full-page shot
     await page.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 600) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 120)) } window.scrollTo(0, 0) })
