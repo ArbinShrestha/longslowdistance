@@ -40,7 +40,7 @@ export function Services({ image }: { image: ResolvedImage | null }) {
                 className="-z-20 object-cover transition-transform duration-[1200ms] ease-(--ease-soft) group-hover:scale-[1.04]"
               />
             )}
-            <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgba(11,11,12,0.92),rgba(11,11,12,0.1)_60%)]" />
+            <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgba(var(--surface-rgb),0.92),rgba(var(--surface-rgb),0.1)_60%)]" />
             <div className="p-8 md:p-10">
               <h3 className="display-md">{first.title}</h3>
               <p className="mt-3 max-w-md text-ink-muted">{first.body}</p>

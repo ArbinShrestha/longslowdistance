@@ -37,7 +37,7 @@ export function Manifesto({ lines }: { lines: string[] }) {
   }, [lines])
 
   return (
-    <section ref={ref} className="flex min-h-[100dvh] items-center bg-surface" aria-label="Manifesto">
+    <section ref={ref} className="flex min-h-[100dvh] items-center" aria-label="Manifesto">
       <div className="container-x">
         <div className="max-w-6xl">
           {lines.map((line, i) => (

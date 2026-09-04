@@ -46,7 +46,7 @@ export default async function AboutPage() {
           </h2>
           <div className="grid gap-12 lg:grid-cols-12">
             <div className="lg:col-span-3">
-              <Badge spin className="h-40 w-40" />
+              <Badge className="h-44 w-44 text-ink" />
             </div>
             <ul className="lg:col-span-9">
               {(settings.manifesto ?? []).map((m, i) => (

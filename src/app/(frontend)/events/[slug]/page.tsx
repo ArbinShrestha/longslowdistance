@@ -54,7 +54,7 @@ export default async function EventPage({ params }: Params) {
     <article>
       <header className="relative isolate flex min-h-[80dvh] items-end overflow-hidden">
         {hero && <Image src={hero.src} alt="" fill priority sizes="100vw" className="-z-20 object-cover" />}
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgba(11,11,12,1)_0%,rgba(11,11,12,0.7)_45%,rgba(11,11,12,0.3)_100%)]" />
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgba(var(--surface-rgb),1)_0%,rgba(var(--surface-rgb),0.7)_45%,rgba(var(--surface-rgb),0.3)_100%)]" />
         <div className="container-x relative pt-40 pb-12 md:pb-16">
           <p className="text-ink-muted">
             {formatDate(event.startAt, { weekday: 'long' })}, {formatTime(event.startAt)}

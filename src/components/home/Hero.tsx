@@ -24,7 +24,7 @@ export function Hero({ image, primary, secondary }: Props) {
           className="-z-20 object-cover object-center"
         />
       )}
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgba(11,11,12,0.96)_0%,rgba(11,11,12,0.72)_38%,rgba(11,11,12,0.25)_70%,rgba(11,11,12,0.35)_100%)]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgba(var(--surface-rgb),0.96)_0%,rgba(var(--surface-rgb),0.72)_38%,rgba(var(--surface-rgb),0.25)_70%,rgba(var(--surface-rgb),0.35)_100%)]" />
 
       <div className="container-x relative grid w-full gap-10 pt-32 pb-14 md:grid-cols-12 md:items-end md:pb-20">
         <div className="md:col-span-9">
@@ -53,7 +53,7 @@ export function Hero({ image, primary, secondary }: Props) {
           </div>
         </div>
         <div className="hidden justify-end md:col-span-3 md:flex">
-          <Badge spin className="h-40 w-40 lg:h-48 lg:w-48" />
+          <Badge className="h-44 w-44 text-ink lg:h-52 lg:w-52" />
         </div>
       </div>
     </section>

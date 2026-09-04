@@ -54,14 +54,12 @@ export default buildConfig({
       }
     : {}),
   plugins: [
-    ...(process.env.BLOB_READ_WRITE_TOKEN
-      ? [
-          // Public store, direct URLs: images and GPX files are read straight from Blob (no proxy function).
-          vercelBlobStorage({
-            collections: { media: { disablePayloadAccessControl: true } },
-            token: process.env.BLOB_READ_WRITE_TOKEN,
-          }),
-        ]
-      : []),
+    // Always registered so the admin import map is stable across environments;
+    // only active when a Blob token is present (production). Public store, direct URLs.
+    vercelBlobStorage({
+      enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
+      collections: { media: { disablePayloadAccessControl: true } },
+      token: process.env.BLOB_READ_WRITE_TOKEN || 'unset',
+    }),
   ],
 })

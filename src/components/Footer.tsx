@@ -18,7 +18,7 @@ export function Footer({ settings }: { settings: SiteSetting }) {
     <footer className="border-t border-line">
       <div className="container-x grid gap-12 py-16 md:grid-cols-12 md:py-24">
         <div className="md:col-span-5">
-          <Badge className="h-28 w-28 md:h-36 md:w-36" />
+          <Badge className="h-32 w-32 text-ink md:h-40 md:w-40" />
           <p className="mt-8 max-w-xs text-ink-muted">{settings.tagline}</p>
         </div>
         <nav className="md:col-span-3" aria-label="Footer">
