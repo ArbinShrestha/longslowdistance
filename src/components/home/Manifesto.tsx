@@ -11,11 +11,15 @@ gsap.registerPlugin(ScrollTrigger)
  * Motivation: the reader is made to spend time with the words, like a long run makes you spend time.
  */
 export function Manifesto({ lines }: { lines: string[] }) {
-  const ref = useRef<HTMLElement>(null)
+  // React owns the outer wrapper; GSAP inserts its pin-spacer around the inner section.
+  // On unmount React removes the wrapper (still a child of its parent), so the spacer never trips removeChild.
+  const ref = useRef<HTMLDivElement>(null)
+  const pinned = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const el = ref.current
-    if (!el || document.documentElement.classList.contains('reduce-motion')) return
+    const section = pinned.current
+    if (!el || !section || document.documentElement.classList.contains('reduce-motion')) return
     const ctx = gsap.context(() => {
       const words = gsap.utils.toArray<HTMLElement>('[data-word]')
       gsap.set(words, { opacity: 0.18 })
@@ -24,7 +28,7 @@ export function Manifesto({ lines }: { lines: string[] }) {
         stagger: 0.6,
         ease: 'none',
         scrollTrigger: {
-          trigger: el,
+          trigger: section,
           start: 'top top',
           end: `+=${Math.max(1200, words.length * 40)}`,
           pin: true,
@@ -53,5 +57,6 @@ export function Manifesto({ lines }: { lines: string[] }) {
         </div>
       </div>
     </section>
+    </div>
   )
 }

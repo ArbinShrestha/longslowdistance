@@ -8,6 +8,9 @@ const dirname = path.dirname(__filename)
 
 const nextConfig: NextConfig = {
   images: {
+    // Payload already stores resized variants in Blob (480/960/1920). Serving them directly avoids
+    // Vercel's image optimizer, whose Hobby quota returns 402 once exhausted.
+    unoptimized: true,
     localPatterns: [
       {
         pathname: '/api/media/file/**',
